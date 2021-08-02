@@ -3,8 +3,8 @@
 Plugin Name: Monero Woocommerce Gateway
 Plugin URI: https://github.com/monero-integrations/monerowp
 Description: Extends WooCommerce by adding a Monero Gateway
-Version: 3.0.1
-Tested up to: 4.9.8
+Version: 3.0.5
+Tested up to: 5.7.2
 Author: mosu-forge, SerHack
 Author URI: https://monerointegrations.com/
 */
@@ -119,6 +119,7 @@ function monero_init() {
         // This filter will replace all prices with amount in Monero (live rates)
         add_filter('wc_price', 'monero_live_price_format', 10, 3);
         function monero_live_price_format($price_html, $price_float, $args) {
+            $price_float = wc_format_decimal($price_float);
             if(!isset($args['currency']) || !$args['currency']) {
                 global $woocommerce;
                 $currency = strtoupper(get_woocommerce_currency());
